@@ -54,8 +54,8 @@
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "axe-cli": "^2.0.0",
-    "axe-core": "^4.0.0",
+    "axe-cli": "",
+    "axe-core": "",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
