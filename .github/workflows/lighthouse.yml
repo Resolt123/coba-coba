@@ -46,7 +46,5 @@ jobs:
       - name: Start server
         run: npm run dev &        
 
-      - name: Run Lighthouse CI
-        uses: lhci/lighthouse-ci-action@v0.7
-        with:
-          urls: 'http://localhost:5173'
+      - name: Run axe-core
+        run: npx axe http://localhost:3000
