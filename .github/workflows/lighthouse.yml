@@ -46,9 +46,6 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Check build folder
-        run: ls -la build
-
       - name: Start server
         run: |
           npm install -g serve
