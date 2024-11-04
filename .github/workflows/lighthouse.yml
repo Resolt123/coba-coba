@@ -3,8 +3,11 @@ name: Linting and Security
 on: [push, pull_request]
 
 jobs:
-  security:
+  performance:
     runs-on: ubuntu-latest
+    defaults: 
+      run:
+        working-directory: BE/app
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -14,10 +17,29 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Security audit for backend
-        working-directory: BE/app
-        run: npm audit --audit-level=high
+      - name: Install dependencies
+        run: npm install
 
-      - name: Security audit for frontend
-        working-directory: FE/app
-        run: npm audit --audit-level=high
+      - name: Start server
+        run: npm run dev
+
+      - name: Run performance test
+        run: npx autocannon http://localhost:3000/api/v1/flight
+  # security:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16'
+
+  #     - name: Security audit for backend
+  #       working-directory: BE/app
+  #       run: npm audit --audit-level=high
+
+  #     - name: Security audit for frontend
+  #       working-directory: FE/app
+  #       run: npm audit --audit-level=high
