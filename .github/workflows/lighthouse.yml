@@ -26,12 +26,11 @@ jobs:
       - name: Run performance test
         run: npx autocannon http://localhost:3000/api/v1/flight
   
-  frontend:
+  lighthouse:
     runs-on: ubuntu-latest
-    defaults:
+    defaults: 
       run:
         working-directory: FE/app
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -41,11 +40,24 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install frontend dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Run frontend lint
-        run: npm run lint
+      - name: Build frontend
+        run: npm run build
+
+      - name: Start server
+        run: |
+          npm install -g serve
+          serve -s build -l 5173 &
+        # Tunggu server siap
+        timeout-minutes: 1
+        continue-on-error: true
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          urls: 'http://localhost:5173'
   # security:
   #   runs-on: ubuntu-latest
   #   steps:
