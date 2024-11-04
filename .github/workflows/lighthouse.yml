@@ -46,7 +46,7 @@ jobs:
       - name: Start server
         run: npm run dev &        
 
-      - name: Run Lighthouse
-        uses: treosh/lighthouse-ci-action@v8
+      - name: Run Lighthouse CI
+        uses: lhci/lighthouse-ci-action@v0.7
         with:
           urls: 'http://localhost:5173'
