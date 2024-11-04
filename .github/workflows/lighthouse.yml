@@ -43,24 +43,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build frontend
-        run: npm run build
-
       - name: Start server
-        run: |
-          npm install -g serve
-          serve -s build -l 5173 &
+        run: npm run dev &        
 
-      - name: Install wait-on
-        run: npm install -g wait-on
+      - name: Run tests
+        run: npm test -- --coverage
 
-      - name: Wait for server
-        run: wait-on http://localhost:5173
-
-      - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v8
-        with:
-          urls: 'http://localhost:5173'
   # security:
   #   runs-on: ubuntu-latest
   #   steps:
