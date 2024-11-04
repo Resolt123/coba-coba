@@ -3,7 +3,7 @@ name: Linting and Security
 on: [push, pull_request]
 
 jobs:
-  performance:
+  backend:
     runs-on: ubuntu-latest
     defaults: 
       run:
@@ -25,6 +25,27 @@ jobs:
 
       - name: Run performance test
         run: npx autocannon http://localhost:3000/api/v1/flight
+  
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: FE/app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      - name: Run frontend lint
+        run: npm run lint
   # security:
   #   runs-on: ubuntu-latest
   #   steps:
