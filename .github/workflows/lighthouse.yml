@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Start server
-        run: npm run dev
+        run: npm run dev &
 
       - name: Run performance test
         run: npx autocannon http://localhost:3000/api/v1/flight
